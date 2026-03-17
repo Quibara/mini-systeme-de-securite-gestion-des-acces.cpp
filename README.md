@@ -1,1 +1,1 @@
-# Project2
+# Mini systeme de securite (gestion des connexions)
