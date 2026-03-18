@@ -120,7 +120,7 @@ int main() {
 					cout << endl;
 					
 				}
-				else {
+				else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur){
 					utilisateurs[i].tentativesConnexion++;
 					cout << "Paramètres invalide.";
 					if (utilisateurs[i].tentativesConnexion >= 3) {
@@ -133,8 +133,9 @@ int main() {
 				}
 			}
 
-			else {
+			else if (utilisateurs[i].nom != nom_de_utilisateur) {
 				    cout << "Compte introuvable." << endl;
+					break;
 			}
 
 			ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;

@@ -1,13 +1,2 @@
 test1 
 1 
-0test2 
-0 
-1test3 
-0 
-2test1 
-1 
-0test2 
-0 
-1test3 
-0 
-2
