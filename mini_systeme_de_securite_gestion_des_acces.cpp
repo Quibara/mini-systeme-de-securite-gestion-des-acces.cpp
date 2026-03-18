@@ -37,7 +37,7 @@ enum NiveauAcces {
 	INVITE
 };
 //Structure Utilisateur qui contiendra les informations sur l'utilisateur, son niveau d'acces et son nombre de tentative de connection
-struct Utilisateur{
+struct Utilisateur {
 
 	string nom;
 	string motDePasse;
@@ -50,7 +50,7 @@ struct Utilisateur{
 int main() {
 
 	// Message pour l'utilisateur
-	cout << "----------Mini systeme de securite-----------"<<endl;
+	cout << "----------Mini systeme de securite-----------" << endl;
 	cout << "---------------gestion des acces---------------" << endl;
 	cout << endl << endl << endl;
 
@@ -59,11 +59,11 @@ int main() {
 
 	cout << "Veuillez entrez le nombre d'utilisateurs qui seront enregistrer : ";
 	cin >> nombre_utilisateur;
-	
+
 	Utilisateur* utilisateurs = new Utilisateur[nombre_utilisateur];
 
 	int tentativesConnexion = 0;
-	
+
 	for (int i = 0; i < nombre_utilisateur; i++) {
 
 		cout << "Nom : ";
@@ -74,7 +74,7 @@ int main() {
 		cout << endl;
 
 		// choix est le variable pour identifier le niveau d'acces de l'utilisateur
-		int choix ;
+		int choix;
 		cout << "Veuillez choisir votre niveau d'acces :\n0 : ADMIN\n1 : UTILISATEUR\n2 : INVITE\n";
 		cout << endl;
 		cout << "Choix : ";
@@ -82,7 +82,7 @@ int main() {
 		cout << endl;
 		utilisateurs[i].niveau = (NiveauAcces)choix;
 
-		
+
 	}
 
 	//OUVRIR LE FICHER LOGS_SECURITE.TXT
@@ -107,7 +107,7 @@ int main() {
 		cout << endl;
 
 
-		 // BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
+		// BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
 
 		for (int i = 0; i < nombre_utilisateur; i++) {
 
@@ -118,9 +118,9 @@ int main() {
 					cout << "Acces autorise.";
 					break;
 					cout << endl;
-					
+
 				}
-				else {
+				else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur) {
 					utilisateurs[i].tentativesConnexion++;
 					cout << "Paramètres invalide.";
 					if (utilisateurs[i].tentativesConnexion >= 3) {
@@ -130,26 +130,31 @@ int main() {
 						break;
 
 					}
+
 				}
+
+
+
+
 			}
 
-			else {
-				    cout << "Compte introuvable.";
-			}
+
 
 			ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
+
 		}
 
-		  tentativesConnexion += 1 ;
+		tentativesConnexion += 1;
 	}
 
-	 
 
 
 
 
-	 delete[] utilisateurs;
-	 ficher.close();
+
+
+	delete[] utilisateurs;
+	ficher.close();
 
 	return 0;
 }
