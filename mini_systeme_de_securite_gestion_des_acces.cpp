@@ -43,7 +43,7 @@ struct Utilisateur {
 	string nom;
 	string motDePasse;
 	NiveauAcces niveau;
-	int tentativesConnexion = 0;
+	int tentativesConnexion;
 
 };
 
@@ -110,12 +110,15 @@ int main() {
 
 		// BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
 
+		bool trouve = false; // Variable pour savoir si l'utilisateur a ete trouve ou pas
+
 		for (int i = 0; i < nombre_utilisateur; i++) {
 
 
 
 			if (utilisateurs[i].nom == nom_de_utilisateur) {
 				if (utilisateurs[i].motDePasse == mot_de_passe_utilisateur) {
+					trouve = true;
 					cout << "Acces autorise.";
 					break;
 					cout << endl;
@@ -141,17 +144,17 @@ int main() {
 
 			ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
 
-			else {
-				cout << "Utilisateur non trouvé." << endl;
-				break;
-				cout << endl;
-			}
-
+		
 			
 
 		}
 
 		tentativesConnexion += 1;
+
+		if (!trouve) {
+			cout << "Compte Introuvable\n";
+			
+		}
 	}
 
 
