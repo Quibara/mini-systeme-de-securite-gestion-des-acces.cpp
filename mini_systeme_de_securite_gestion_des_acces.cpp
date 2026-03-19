@@ -139,9 +139,15 @@ int main() {
 
 			}
 
-
-
 			ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
+
+			else {
+				cout << "Utilisateur non trouvé." << endl;
+				break;
+				cout << endl;
+			}
+
+			
 
 		}
 
