@@ -26,12 +26,13 @@ STRUCTURE
 #include <iostream>
 #include<string>
 #include<fstream>
+#include<stdexcept>
 using namespace std;
 
 
 
 
-//NiveauAcces est une enumeration pour savoir a quel titre l'utilisateur souhaite se connecter
+//NiveauAcces est une énumeration pour savoir a quel titre l'utilisateur souhaite se connecter
 enum NiveauAcces {
 	ADMIN,
 	UTILISATEUR,
@@ -43,7 +44,7 @@ struct Utilisateur {
 	string nom;
 	string motDePasse;
 	NiveauAcces niveau;
-	int tentativesConnexion;
+	int tentativesConnexion = 0;
 
 };
 
@@ -51,36 +52,47 @@ struct Utilisateur {
 int main() {
 
 	// Message pour l'utilisateur
-	cout << "----------Mini systeme de securite-----------" << endl;
-	cout << "---------------gestion des acces---------------" << endl;
-	cout << endl << endl << endl;
+	cout << "00000000-------------------------------------Mini systeme de securite------------------------------------------000000001" << endl;
+	cout << "00000000----------------------------------------gestion des acces----------------------------------------------000000001" << endl;
+	cout << endl << endl << endl<<endl<<endl;
 
 	//DEFENIR LA VARIABLE QUI VAS CONTENIR LE NOMBRE D'UTILISATEUR QUE VAS CONTENIR LE SYSTEME
 	int nombre_utilisateur;
 
-	cout << "Veuillez entrez le nombre d'utilisateurs qui seront enregistrer : ";
+	cout << "Veuillez entrez le nombre d'utilisateur(s) qui seront enregistrer : ";
 	cin >> nombre_utilisateur;
+	cout << endl;
 
 	Utilisateur* utilisateurs = new Utilisateur[nombre_utilisateur];
 
 	int tentativesConnexion = 0;
+	
+
 
 	for (int i = 0; i < nombre_utilisateur; i++) {
-
+		 
+		cout << endl;
+		cout << endl;
+		cout << "Utilisateur " << i + 1 << "  " << endl;
+		cout << endl;
 		cout << "Nom : ";
 		cin >> utilisateurs[i].nom;
 		cout << endl;
 		cout << "Mot de passe : ";
 		cin >> utilisateurs[i].motDePasse;
 		cout << endl;
+		cout << endl;
 
 		// choix est le variable pour identifier le niveau d'acces de l'utilisateur
+
 		int choix;
-		cout << "Veuillez choisir votre niveau d'acces :\n0 : ADMIN\n1 : UTILISATEUR\n2 : INVITE\n";
+
+		cout << "Veuillez choisir votre niveau d'acces :\n\n0 : ADMIN\n1 : UTILISATEUR\n2 : INVITE\n";
 		cout << endl;
-		cout << "Choix : ";
+		cout << endl;
+		cout << "Code du niveau d'acces : ";
 		cin >> choix;
-		cout << endl;
+		
 		utilisateurs[i].niveau = (NiveauAcces)choix;
 
 
@@ -92,12 +104,15 @@ int main() {
 
 	//SIMULATILON DE CONNEXION
 
+	cout << endl << endl << endl << endl;
+	cout << "**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************";
+	
+	//BOUCLE WHILE POUR QUE L'UTILISAITEUR FASSE 3 ESSAIS
 
-	//BOUCLE WHILE POUR QUE L'UTILISAITEUR AIT 3 ESSAIS
 	while (tentativesConnexion < 3) {
 
 
-		cout << endl << endl << endl;
+		cout << "\n\n\n\nVeuillez vous connecter  " << endl<<endl<< endl<<endl;
 		cout << "Nom : ";
 		string nom_de_utilisateur;
 		cin >> nom_de_utilisateur;
@@ -108,64 +123,64 @@ int main() {
 		cout << endl;
 
 
+		// Variable pour savoir si l'utilisateur existe.
+		bool trouve = false; 
+
+		
 		// BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
 
-		bool trouve = false; // Variable pour savoir si l'utilisateur a ete trouve ou pas
-
-		for (int i = 0; i < nombre_utilisateur; i++) {
+			for (int i = 0; i < nombre_utilisateur; i++) {
 
 
 
-			if (utilisateurs[i].nom == nom_de_utilisateur) {
-				if (utilisateurs[i].motDePasse == mot_de_passe_utilisateur) {
+				if (utilisateurs[i].nom == nom_de_utilisateur) {
+
 					trouve = true;
-					cout << "Acces autorise.";
-					break;
-					cout << endl;
 
-				}
-				else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur) {
-					utilisateurs[i].tentativesConnexion++;
-					cout << "Paramètres invalide.";
-					if (utilisateurs[i].tentativesConnexion >= 3) {
+					if (utilisateurs[i].motDePasse == mot_de_passe_utilisateur) {
 
-						cout << "Compte bloqué." << endl;
-
+						cout << "Acces autorise.";
 						break;
+						cout << endl;
 
 					}
 
+					else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur) {
+
+						utilisateurs[i].tentativesConnexion++;
+						cout << "Paramètre (s) invalide &&";
+						cout << " Tentative(s) " << utilisateurs[i].tentativesConnexion << "\n";
+						if (utilisateurs[i].tentativesConnexion >= 3) {
+
+							cout << "\n\nVotre compte est bloquer.";
+							
+				
+						}
+
+					}
+
+				
+
 				}
 
+				ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
 
-
-
+				
 			}
 
-			ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
-
+			if (!trouve) {
+				cout << "Utilisateur non trouve." << endl;
+				break;
+			}
 		
-			
-
-		}
-
-		tentativesConnexion += 1;
-
-		if (!trouve) {
-			cout << "Compte Introuvable\n";
-			
-		}
+			tentativesConnexion++;
 	}
 
 
 
-
-
-
-
-	delete[] utilisateurs;
-	ficher.close();
-
+	delete[] utilisateurs; // Liberer l'espace memoire utilser par le tableau
+	ficher.close(); // Fermer le ficher log.txt
+	
 	return 0;
 }
 
