@@ -31,7 +31,6 @@ using namespace std;
 
 
 
-
 //NiveauAcces est une énumeration pour savoir a quel titre l'utilisateur souhaite se connecter
 enum NiveauAcces {
 	ADMIN,
@@ -47,7 +46,23 @@ struct Utilisateur {
 	int tentativesConnexion = 0;
 
 };
+// Fonction de tri a bulle pour trier les utilisateurs en fonction de leur nombre de tentative de connexion
+void tri_a_bulle(Utilisateur utilisateurs[], int nombre_utilisateur) {
 
+	for (int i = 0; i < nombre_utilisateur - 1; i++) {
+
+		for (int j = 0; j < nombre_utilisateur - i - 1; j++) {
+
+			if (utilisateurs[j].tentativesConnexion < utilisateurs[j + 1].tentativesConnexion) {
+
+				Utilisateur tmp = utilisateurs[j];
+				utilisateurs[j] = utilisateurs[j + 1];
+				utilisateurs[j + 1] = tmp;
+
+			}
+		}
+	}
+}
 
 int main() {
 
@@ -174,9 +189,21 @@ int main() {
 			}
 		
 			tentativesConnexion++;
+
+
 	}
+	
 
+	tri_a_bulle(utilisateurs, nombre_utilisateur); // Appel de la fonction de tri a bulle pour trier les utilisateurs en fonction de leur nombre de tentative de connexion
+	
 
+	// Affichage des utilisateurs tries par nombre de tentatives de connexion
+	cout << "\n\n\n\n\n\nUtilisateurs tries par nombre de tentatives :\n\n\n";
+
+	for (int i = 0; i < nombre_utilisateur; i++) {
+		cout << utilisateurs[i].nom << " - Tentatives : "
+			<< utilisateurs[i].tentativesConnexion << endl;
+	}
 
 	delete[] utilisateurs; // Liberer l'espace memoire utilser par le tableau
 	ficher.close(); // Fermer le ficher log.txt
@@ -185,4 +212,21 @@ int main() {
 }
 
 
-//Fin
+//Fin du programme
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+                                                                                           
+
+
+
+
+
