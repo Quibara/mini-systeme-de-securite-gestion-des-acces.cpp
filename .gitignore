@@ -1,13 +1,1 @@
-﻿# Fichiers de compilation Visual Studio
-x64/
-Debug/
-Release/
-*.exe
-*.obj
-*.pdb
-*.ilk
-*.log
-*.tlog
-*.lastbuildstate
-*.idb
-
+.vs/ 
