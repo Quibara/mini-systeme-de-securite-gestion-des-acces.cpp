@@ -37,6 +37,8 @@ enum NiveauAcces {
 	UTILISATEUR,
 	INVITE
 };
+
+
 //Structure Utilisateur qui contiendra les informations sur l'utilisateur, son niveau d'acces et son nombre de tentative de connection
 struct Utilisateur {
 
@@ -46,6 +48,8 @@ struct Utilisateur {
 	int tentativesConnexion = 0;
 
 };
+
+
 // Fonction de tri a bulle pour trier les utilisateurs en fonction de leur nombre de tentative de connexion
 void tri_a_bulle(Utilisateur utilisateurs[], int nombre_utilisateur) {
 
@@ -63,6 +67,20 @@ void tri_a_bulle(Utilisateur utilisateurs[], int nombre_utilisateur) {
 		}
 	}
 }
+
+
+// Fonction pour convertir le niveau d'acces en string pour l'affichage et la sauvegarde dans le fichier
+string niveauToString(NiveauAcces niveau) {
+	switch (niveau) {
+	case ADMIN: return "ADMIN";
+	case UTILISATEUR: return "UTILISATEUR";
+	case INVITE: return "INVITE";
+	default: return "INCONNU";
+	}
+}
+
+
+// Fonction principale du programme
 
 int main() {
 
@@ -121,6 +139,7 @@ int main() {
 
 		//OUVRIR LE FICHER LOGS_SECURITE.TXT
 		ofstream ficher("logs_securite.txt");
+		ficher << "===== LOGS DE SECURITE =====" << endl;
 		if (!ficher) {
 			throw runtime_error("Erreur lors de l'ouverture du fichier");
 		}
@@ -186,7 +205,11 @@ int main() {
 
 				}
 
-				ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
+				// Enregistrer les details sur les tentatives de connexion dans le fichier log.txt
+				ficher << "Nom: " << utilisateurs[i].nom
+					<< " | Tentatives: " << utilisateurs[i].tentativesConnexion
+					<< " | Niveau: " << niveauToString(utilisateurs[i].niveau)
+					<< endl;
 
 
 			}

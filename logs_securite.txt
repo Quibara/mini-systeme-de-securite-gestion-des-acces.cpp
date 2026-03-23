@@ -1,19 +1,10 @@
-test1 
-0 
-0test2 
-0 
-1test3 
-0 
-2test1 
-0 
-0test2 
-0 
-1test3 
-1 
-2test1 
-0 
-0test2 
-1 
-1test3 
-1 
-2
+===== LOGS DE SECURITE =====
+Nom: test1 | Tentatives: 1 | Niveau: ADMIN
+Nom: test2 | Tentatives: 0 | Niveau: UTILISATEUR
+Nom: test3 | Tentatives: 0 | Niveau: INVITE
+Nom: test1 | Tentatives: 1 | Niveau: ADMIN
+Nom: test2 | Tentatives: 1 | Niveau: UTILISATEUR
+Nom: test3 | Tentatives: 0 | Niveau: INVITE
+Nom: test1 | Tentatives: 1 | Niveau: ADMIN
+Nom: test2 | Tentatives: 1 | Niveau: UTILISATEUR
+Nom: test3 | Tentatives: 1 | Niveau: INVITE
