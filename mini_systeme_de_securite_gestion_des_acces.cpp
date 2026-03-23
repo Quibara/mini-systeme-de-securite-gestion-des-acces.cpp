@@ -23,7 +23,7 @@ STRUCTURE
 
 */
 
-#include <iostream>
+#include<iostream>
 #include<string>
 #include<fstream>
 #include<stdexcept>
@@ -66,93 +66,101 @@ void tri_a_bulle(Utilisateur utilisateurs[], int nombre_utilisateur) {
 
 int main() {
 
-	// Message pour l'utilisateur
-	cout << "00000000-------------------------------------Mini systeme de securite------------------------------------------000000001" << endl;
-	cout << "00000000----------------------------------------gestion des acces----------------------------------------------000000001" << endl;
-	cout << endl << endl << endl<<endl<<endl;
+	try {
+		// Message pour l'utilisateur
+		cout << "00000000-------------------------------------Mini systeme de securite------------------------------------------000000001" << endl;
+		cout << "00000000----------------------------------------gestion des acces----------------------------------------------000000001" << endl;
+		cout << endl << endl << endl << endl << endl;
 
-	//DEFENIR LA VARIABLE QUI VAS CONTENIR LE NOMBRE D'UTILISATEUR QUE VAS CONTENIR LE SYSTEME
-	int nombre_utilisateur;
+		//DEFENIR LA VARIABLE QUI VAS CONTENIR LE NOMBRE D'UTILISATEUR QUE VAS CONTENIR LE SYSTEME
+		int nombre_utilisateur;
 
-	cout << "Veuillez entrez le nombre d'utilisateur(s) qui seront enregistrer : ";
-	cin >> nombre_utilisateur;
-	cout << endl;
-
-	Utilisateur* utilisateurs = new Utilisateur[nombre_utilisateur];
-
-	int tentativesConnexion = 0;
-	
-
-
-	for (int i = 0; i < nombre_utilisateur; i++) {
-		 
-		cout << endl;
-		cout << endl;
-		cout << "Utilisateur " << i + 1 << "  " << endl;
-		cout << endl;
-		cout << "Nom : ";
-		cin >> utilisateurs[i].nom;
-		cout << endl;
-		cout << "Mot de passe : ";
-		cin >> utilisateurs[i].motDePasse;
-		cout << endl;
+		cout << "Veuillez entrez le nombre d'utilisateur(s) qui seront enregistrer : ";
+		cin >> nombre_utilisateur;
+		if (nombre_utilisateur <= 0) {
+			throw runtime_error("Le nombre d'utilisateur doit etre superieur a 0.");
+		}
 		cout << endl;
 
-		// choix est le variable pour identifier le niveau d'acces de l'utilisateur
+		Utilisateur* utilisateurs = new Utilisateur[nombre_utilisateur];
 
-		int choix;
+		int tentativesConnexion = 0;
 
-		cout << "Veuillez choisir votre niveau d'acces :\n\n0 : ADMIN\n1 : UTILISATEUR\n2 : INVITE\n";
-		cout << endl;
-		cout << endl;
-		cout << "Code du niveau d'acces : ";
-		cin >> choix;
-		
-		utilisateurs[i].niveau = (NiveauAcces)choix;
+		//BOUCLE QUI ENREGISTRE LES UTILISATEURS DANS LE SYSTEME
 
+		for (int i = 0; i < nombre_utilisateur; i++) {
 
-	}
-
-	//OUVRIR LE FICHER LOGS_SECURITE.TXT
-	ofstream ficher("logs_securite.txt");
-
-
-	//SIMULATILON DE CONNEXION
-
-	cout << endl << endl << endl << endl;
-	cout << "**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************";
-	
-	//BOUCLE WHILE POUR QUE L'UTILISAITEUR FASSE 3 ESSAIS
-
-	while (tentativesConnexion < 3) {
-
-
-		cout << "\n\n\n\nVeuillez vous connecter  " << endl<<endl<< endl<<endl;
-		cout << "Nom : ";
-		string nom_de_utilisateur;
-		cin >> nom_de_utilisateur;
-		string mot_de_passe_utilisateur;
-		cout << endl,
+			cout << endl;
+			cout << endl;
+			cout << "Utilisateur " << i + 1 << "  " << endl;
+			cout << endl;
+			cout << "Nom : ";
+			cin >> utilisateurs[i].nom;
+			cout << endl;
 			cout << "Mot de passe : ";
-		cin >> mot_de_passe_utilisateur;
-		cout << endl;
+			cin >> utilisateurs[i].motDePasse;
+			cout << endl;
+			cout << endl;
+
+			// choix est le variable pour identifier le niveau d'acces de l'utilisateur
+
+			int choix;
+
+			cout << "Veuillez choisir votre niveau d'acces :\n\n0 : ADMIN\n1 : UTILISATEUR\n2 : INVITE\n";
+			cout << endl;
+			cout << endl;
+			cout << "Code du niveau d'acces : ";
+			cin >> choix;
+			if (choix < 0 || choix > 2) {
+				throw runtime_error("Choix invalide pour le niveau d'acces. Veuillez choisir entre 0, 1 ou 2.");
+			}
+			utilisateurs[i].niveau = (NiveauAcces)choix;
 
 
-		// Variable pour savoir si l'utilisateur existe.
-		bool trouve = false; 
+		}
 
-		
-		// BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
+		//OUVRIR LE FICHER LOGS_SECURITE.TXT
+		ofstream ficher("logs_securite.txt");
+		if (!ficher) {
+			throw runtime_error("Erreur lors de l'ouverture du fichier");
+		}
+
+		//SIMULATILON DE CONNEXION
+
+		cout << endl << endl << endl << endl;
+		cout << "**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************\n**********************************************";
+
+		//BOUCLE WHILE POUR QUE L'UTILISAITEUR FASSE 3 ESSAIS
+
+		while (tentativesConnexion < 3) {
+
+
+			cout << "\n\n\n\nVeuillez vous connecter  " << endl << endl << endl << endl;
+			cout << "Nom : ";
+			string nom_de_utilisateur;
+			cin >> nom_de_utilisateur;
+			string mot_de_passe_utilisateur;
+			cout << endl,
+				cout << "Mot de passe : ";
+			cin >> mot_de_passe_utilisateur;
+			cout << endl;
+
+
+			// Variable pour savoir si l'utilisateur existe.
+			bool trouve = false;
+
+
+			// BOUCLE FOR POUR PARCOURIR LE TABLEAU ET VERIFICATION DE NOM && MOT DE PASSE DE L'UTILISATEUR
 
 			for (int i = 0; i < nombre_utilisateur; i++) {
 
 
 
-				if (utilisateurs[i].nom == nom_de_utilisateur) {
+				if (utilisateurs[i].nom == nom_de_utilisateur) {                                           //Verifie si le nom de l'utilisateur existe dans le tableau d'utilisateur
 
 					trouve = true;
 
-					if (utilisateurs[i].motDePasse == mot_de_passe_utilisateur) {
+					if (utilisateurs[i].motDePasse == mot_de_passe_utilisateur) {                         //Verifie si le mot de passe de l'utilisateur correspond a celui enregistre dans le tableau d'utilisateur
 
 						cout << "Acces autorise.";
 						break;
@@ -160,54 +168,65 @@ int main() {
 
 					}
 
-					else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur) {
+					else if (utilisateurs[i].motDePasse != mot_de_passe_utilisateur) {                   // Si le mot de passe est incorrect, on incremente le nombre de tentative de connexion de l'utilisateur et on affiche un message d'erreur
 
 						utilisateurs[i].tentativesConnexion++;
 						cout << "Paramètre (s) invalide &&";
 						cout << " Tentative(s) " << utilisateurs[i].tentativesConnexion << "\n";
-						if (utilisateurs[i].tentativesConnexion >= 3) {
+						if (utilisateurs[i].tentativesConnexion >= 3) {                                 //Si le nombre de tentative de connexion est superieur ou egal a 3, on affiche un message d'erreur et on bloque le compte de l'utilisateur
 
 							cout << "\n\nVotre compte est bloquer.";
-							
-				
+
+
 						}
 
 					}
 
-				
+
 
 				}
 
 				ficher << utilisateurs[i].nom << " " << endl << utilisateurs[i].tentativesConnexion << " " << endl << utilisateurs[i].niveau;
 
-				
+
 			}
+
+			// Si l'utilisateur n'est pas trouve dans le tableau d'utilisateur, on affiche un message d'erreur
 
 			if (!trouve) {
 				cout << "Utilisateur non trouve." << endl;
-			
+
 			}
-		
+
 			tentativesConnexion++;
 
 
+		}
+
+
+		tri_a_bulle(utilisateurs, nombre_utilisateur); // Appel de la fonction de tri a bulle pour trier les utilisateurs en fonction de leur nombre de tentative de connexion
+
+
+		// Affichage des utilisateurs tries par nombre de tentatives de connexion
+		cout << "\n\n\n\n\n\nUtilisateurs tries par nombre de tentatives :\n\n\n";
+
+		for (int i = 0; i < nombre_utilisateur; i++) {
+			cout << utilisateurs[i].nom << " - Tentatives : "
+				<< utilisateurs[i].tentativesConnexion << endl;
+		}
+
+		delete[] utilisateurs; // Liberer l'espace memoire utilser par le tableau
+		ficher.close(); // Fermer le ficher log.txt
 	}
-	
 
-	tri_a_bulle(utilisateurs, nombre_utilisateur); // Appel de la fonction de tri a bulle pour trier les utilisateurs en fonction de leur nombre de tentative de connexion
-	
 
-	// Affichage des utilisateurs tries par nombre de tentatives de connexion
-	cout << "\n\n\n\n\n\nUtilisateurs tries par nombre de tentatives :\n\n\n";
+	// Gestion d'erreur pour les entrées invalides et les erreurs de fichier
 
-	for (int i = 0; i < nombre_utilisateur; i++) {
-		cout << utilisateurs[i].nom << " - Tentatives : "
-			<< utilisateurs[i].tentativesConnexion << endl;
+	catch (exception& e) {
+		cout << "Erreur : " << e.what() << endl;
 	}
 
-	delete[] utilisateurs; // Liberer l'espace memoire utilser par le tableau
-	ficher.close(); // Fermer le ficher log.txt
-	
+
 	return 0;
 }
 
